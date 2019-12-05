@@ -20,8 +20,20 @@ def ERS_00(parameter):
             'text': {'text': [res1]}},{
             'text': {'text': [res2]}},{
             'text': {'text': [res3]}},{
-            'text': {'text': [res4]}
-        }]}    #dialogflow webhook response api 코드에 해당
+            'text': {'text': [res4]}},
+            {
+            'card': {
+            'title' : '찾으시던 에러코드가 맞으신가요?',
+            'buttons': [
+                {
+                    'text': '예',
+                    'postback': '예'
+                },
+                {
+                    'text': '아니요',
+                    'postback': '아니요'
+                }
+            ]}}]}    #dialogflow webhook response api 코드에 해당
     return res
 def ERS_01(parameter):
     row = df2[df2['에러코드'].isin([parameter])]    #parameter와 일치하는 행 데이터로 추출
@@ -35,20 +47,37 @@ def ERS_01(parameter):
             'text': {'text': [res1]}},{
             'text': {'text': [res2]}},{
             'text': {'text': [res3]}},{
-            'text': {'text': [res4]}
-        }]}    #dialogflow webhook response api 코드에 해당
+            'text': {'text': [res4]}},
+            {
+            'card': {
+            'title' : '찾으시던 에러코드가 맞으신가요?',
+            'buttons': [
+                {
+                    'text': '예',
+                    'postback': '예'
+                },
+                {
+                    'text': '아니요',
+                    'postback': '아니요'
+                }
+            ]}}]}    #dialogflow webhook response api 코드에 해당
     return res
 
 @app.route('/')
 def home():
     return 'hello'
-@app.route('/test')
-def test():
-    return render_template('test.html')
-    
+
 @app.route('/image', methods=['GET','POST'])
 def img():
     return render_template('img.html')
+
+@app.route('/faq04', methods=['GET','POST'])
+def faq04():
+    return render_template('faq04.html')
+
+@app.route('/faq06', methods=['GET','POST'])
+def faq06():
+    return render_template('faq06.html')
 
 @app.route('/webhook', methods=['GET','POST'])    #dialogflow webhook
 def webhook():
