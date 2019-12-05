@@ -2,7 +2,7 @@
 
 import requests
 import pandas as pd
-from flask import Flask, request, jsonify, json, make_response
+from flask import Flask, request, jsonify, json, make_response, render_template
 
 df = pd.read_excel('ERS.xlsx', sheet_name='Sheet1')    #엑셀 시트 데이터를 읽고 df에 저장
 df2 = pd.read_excel('ERS.xlsx', sheet_name='Sheet2')    
@@ -38,11 +38,18 @@ def ERS_01(parameter):
             'text': {'text': [res4]}
         }]}    #dialogflow webhook response api 코드에 해당
     return res
+
+@app.route('/')
+def home():
+    return 'hello'
+@app.route('/test')
+def test():
+    return render_template('test.html')
     
-# @app.route('/')
-# def hello():
-#     return 'hello~'
- 
+@app.route('/image', methods=['GET','POST'])
+def img():
+    return render_template('img.html')
+
 @app.route('/webhook', methods=['GET','POST'])    #dialogflow webhook
 def webhook():
     req=request.get_json(silent=True, force=True)
